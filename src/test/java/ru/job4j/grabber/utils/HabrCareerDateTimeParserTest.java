@@ -1,8 +1,6 @@
-package ru.job4j.grabber.utuls;
+package ru.job4j.grabber.utils;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.grabber.utils.DateTimeParser;
-import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
