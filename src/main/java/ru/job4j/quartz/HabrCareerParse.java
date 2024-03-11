@@ -28,8 +28,19 @@ public class HabrCareerParse {
                 String link = String.format("%s%s", SOURCE_LINK, linkElement.attr("href"));
                 String vacancyDate = dateElement.child(0).attr("datetime");
                 System.out.printf("%s %s %s %n", vacancyName, link, vacancyDate);
+                try {
+                    System.out.println(new HabrCareerParse().retrieveDescription(link));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
             pageNumber++;
         }
+    }
+
+    private String retrieveDescription(String link) throws IOException {
+        Connection connection = Jsoup.connect(link);
+        Document document = connection.get();
+        return document.select(".vacancy-description__text").first().text();
     }
 }
