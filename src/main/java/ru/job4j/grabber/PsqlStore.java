@@ -12,6 +12,7 @@ public class PsqlStore implements Store {
 
     public PsqlStore() {
         init();
+        createPost();
     }
 
     private void init() {
@@ -25,16 +26,23 @@ public class PsqlStore implements Store {
                     config.getProperty("username"),
                     config.getProperty("password")
             );
-            PreparedStatement statement = connection.prepareStatement("create table if not exists post("
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    private void createPost() {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("create table if not exists post("
                     + "id serial primary key,"
                     + "name text,"
                     + "text text not null,"
-                    + "link text not null,"
-                    + "created timestamp not null,"
-                    + "unique (text, link, created))");
+                    + "link text not null unique,"
+                    + "created timestamp not null)");
             statement.execute();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -44,15 +52,16 @@ public class PsqlStore implements Store {
         try {
             statement = connection.prepareStatement(
                     "INSERT INTO post (name, text, link, created)"
-                            + "VALUES (?, ?, ?, ?) ON CONFLICT (text, link, created) DO UPDATE "
-                            + "SET text = ?, link = ?, created = ?");
+                            + "VALUES (?, ?, ?, ?) ON CONFLICT (link) DO UPDATE "
+                            + "SET name = ?, text = ?, link = ?, created = ?");
             statement.setString(1, post.getTitle());
             statement.setString(2, post.getDescription());
             statement.setString(3, post.getLink());
             statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
-            statement.setString(5, post.getDescription());
-            statement.setString(6, post.getLink());
-            statement.setTimestamp(7, Timestamp.valueOf(post.getCreated()));
+            statement.setString(5, post.getTitle());
+            statement.setString(6, post.getDescription());
+            statement.setString(7, post.getLink());
+            statement.setTimestamp(8, Timestamp.valueOf(post.getCreated()));
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,7 +122,7 @@ public class PsqlStore implements Store {
 
     public static void main(String[] args) {
         Store store = new PsqlStore();
-        store.save(new Post("name1", "text1", "link1", LocalDateTime.now()));
+        store.save(new Post("name1", "link1", "text1", LocalDateTime.now()));
         System.out.println(store.findById(1));
         for (Post post : store.getAll()) {
             System.out.println(post);
