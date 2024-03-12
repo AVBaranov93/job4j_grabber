@@ -24,7 +24,9 @@ public class HabrCareerParse implements Parse {
     }
 
     public static void main(String[] args) {
-        for (Post post : new HabrCareerParse(new HabrCareerDateTimeParser()).list(SOURCE_LINK)) {
+        HabrCareerDateTimeParser habrCareerDateTimeParser = new HabrCareerDateTimeParser();
+        HabrCareerParse habrCareerParse = new HabrCareerParse(habrCareerDateTimeParser);
+        for (Post post : habrCareerParse.list(SOURCE_LINK)) {
             System.out.println(post);
         }
     }
