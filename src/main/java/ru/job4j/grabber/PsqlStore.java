@@ -2,7 +2,6 @@ package ru.job4j.grabber;
 
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -10,15 +9,14 @@ import java.util.Properties;
 public class PsqlStore implements Store {
     private Connection connection;
 
-    public PsqlStore() {
-        init();
+    public PsqlStore(Properties config) {
+        init(config);
         createPost();
     }
 
-    private void init() {
+    private void init(Properties config) {
         try (InputStream input = PsqlStore.class.getClassLoader()
                 .getResourceAsStream("db/liquibase.properties")) {
-            Properties config = new Properties();
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
             connection = DriverManager.getConnection(
@@ -117,15 +115,6 @@ public class PsqlStore implements Store {
     public void close() throws Exception {
         if (connection != null) {
             connection.close();
-        }
-    }
-
-    public static void main(String[] args) {
-        Store store = new PsqlStore();
-        store.save(new Post("name1", "link1", "text1", LocalDateTime.now()));
-        System.out.println(store.findById(1));
-        for (Post post : store.getAll()) {
-            System.out.println(post);
         }
     }
 }

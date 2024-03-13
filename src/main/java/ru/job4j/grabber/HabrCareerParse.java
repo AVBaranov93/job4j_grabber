@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import ru.job4j.grabber.utils.DateTimeParser;
-import ru.job4j.grabber.utils.HabrCareerDateTimeParser;
 
 public class HabrCareerParse implements Parse {
     public static final String PREFIX = "/vacancies?page=";
@@ -21,14 +20,6 @@ public class HabrCareerParse implements Parse {
 
     public HabrCareerParse(DateTimeParser dateTimeParser) {
         this.dateTimeParser = dateTimeParser;
-    }
-
-    public static void main(String[] args) {
-        HabrCareerDateTimeParser habrCareerDateTimeParser = new HabrCareerDateTimeParser();
-        HabrCareerParse habrCareerParse = new HabrCareerParse(habrCareerDateTimeParser);
-        for (Post post : habrCareerParse.list(SOURCE_LINK)) {
-            System.out.println(post);
-        }
     }
 
     private String retrieveDescription(String link) {
