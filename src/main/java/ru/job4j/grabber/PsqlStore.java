@@ -11,7 +11,6 @@ public class PsqlStore implements Store {
 
     public PsqlStore(Properties config) {
         init(config);
-        createPost();
     }
 
     private void init(Properties config) {
@@ -27,6 +26,7 @@ public class PsqlStore implements Store {
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
+        createPost();
     }
 
     private void createPost() {
@@ -50,16 +50,11 @@ public class PsqlStore implements Store {
         try {
             statement = connection.prepareStatement(
                     "INSERT INTO post (name, text, link, created)"
-                            + "VALUES (?, ?, ?, ?) ON CONFLICT (link) DO UPDATE "
-                            + "SET name = ?, text = ?, link = ?, created = ?");
+                            + "VALUES (?, ?, ?, ?) ON CONFLICT (link) DO NOTHING");
             statement.setString(1, post.getTitle());
             statement.setString(2, post.getDescription());
             statement.setString(3, post.getLink());
             statement.setTimestamp(4, Timestamp.valueOf(post.getCreated()));
-            statement.setString(5, post.getTitle());
-            statement.setString(6, post.getDescription());
-            statement.setString(7, post.getLink());
-            statement.setTimestamp(8, Timestamp.valueOf(post.getCreated()));
             statement.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
