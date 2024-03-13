@@ -16,7 +16,7 @@ public class PsqlStore implements Store {
 
     private void init(Properties config) {
         try (InputStream input = PsqlStore.class.getClassLoader()
-                .getResourceAsStream("db/liquibase.properties")) {
+                .getResourceAsStream("app.properties")) {
             config.load(input);
             Class.forName(config.getProperty("driver-class-name"));
             connection = DriverManager.getConnection(
