@@ -86,7 +86,6 @@ public class Grabber implements Grab {
             for (Post post : parse.list("https://career.habr.com")) {
                 store.save(post);
             }
-
         }
     }
 
