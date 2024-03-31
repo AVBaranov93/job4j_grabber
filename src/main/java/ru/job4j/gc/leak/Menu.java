@@ -13,6 +13,7 @@ public class Menu {
     public static final String SELECT = "Выберите меню";
     public static final String COUNT = "Выберите количество создаваемых постов";
     public static final String TEXT_OF_POST = "Введите текст";
+    public static final String POSTS_DELETED = "Все посты удалены";
     public static final String EXIT = "Конец работы";
 
     public static final String MENU = """
@@ -57,7 +58,7 @@ public class Menu {
             } else if (SHOW_ALL_POSTS == userChoice) {
                 System.out.println(PostStore.getPosts());
             } else if (DELETE_POST == userChoice) {
-//                System.out.println(ID_FOR_DELETE);
+                System.out.println(POSTS_DELETED);
                 postStore.removeAll();
             } else {
                 run = false;
