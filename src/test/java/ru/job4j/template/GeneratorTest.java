@@ -23,7 +23,8 @@ class GeneratorTest {
     String template = "I am ${name}, i'm from ${city}. Who are ${subject}? ";
     Map<String, String> phrases = new HashMap<>();
     phrases.put("name", "Eduardo");
-    assertThatThrownBy(() -> generator.produce(template, phrases)).isInstanceOf(IllegalStateException.class);
+    assertThatThrownBy(() -> generator.produce(template, phrases))
+            .isInstanceOf(IllegalStateException.class);
 }
 
     @Test
@@ -33,6 +34,7 @@ class GeneratorTest {
         Map<String, String> phrases = new HashMap<>();
         phrases.put("name", "Eduardo");
         phrases.put("city", "London");
-        assertThatThrownBy(() -> generator.produce(template, phrases)).isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> generator.produce(template, phrases))
+                .isInstanceOf(IllegalStateException.class);
     }
 }
