@@ -19,9 +19,13 @@ class XMLReportTest {
         MemoryStore store = new MemoryStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("eduardo", now, now, 10000);
+        Employee worker2 = new Employee("kate", now, now, 15000);
+        Employee worker3 = new Employee("maggy", now, now, 20000);
 
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
+        store.add(worker2);
+        store.add(worker3);
         JAXBContext context;
         try {
             context = JAXBContext.newInstance(Employees.class);
@@ -45,6 +49,30 @@ class XMLReportTest {
                 .append(String.format("        <fired>%s</fired>", parser.parse(now)))
                 .append(separator)
                 .append("        <salary>10000.0</salary>")
+                .append(separator)
+                .append("    </employee>")
+                .append(separator)
+                .append("    <employee>")
+                .append(separator)
+                .append("        <name>kate</name>")
+                .append(separator)
+                .append(String.format("        <hired>%s</hired>", parser.parse(now)))
+                .append(separator)
+                .append(String.format("        <fired>%s</fired>", parser.parse(now)))
+                .append(separator)
+                .append("        <salary>15000.0</salary>")
+                .append(separator)
+                .append("    </employee>")
+                .append(separator)
+                .append("    <employee>")
+                .append(separator)
+                .append("        <name>maggy</name>")
+                .append(separator)
+                .append(String.format("        <hired>%s</hired>", parser.parse(now)))
+                .append(separator)
+                .append(String.format("        <fired>%s</fired>", parser.parse(now)))
+                .append(separator)
+                .append("        <salary>20000.0</salary>")
                 .append(separator)
                 .append("    </employee>")
                 .append(separator)

@@ -18,9 +18,13 @@ class JSONReportTest {
         MemoryStore store = new MemoryStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("eduardo", now, now, 10000);
+        Employee worke2 = new Employee("kate", now, now, 15000);
+        Employee worke3 = new Employee("maggy", now, now, 20000);
 
         DateTimeParser<Calendar> parser = new ReportDateTimeParser();
         store.add(worker);
+        store.add(worke2);
+        store.add(worke3);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Report report = new JSONReport(store, parser, gson);
@@ -38,6 +42,30 @@ class JSONReportTest {
                 .append(String.format("    \"fired\": \"%s\",", parser.parse(now)))
                 .append(separator)
                 .append("    \"salary\": 10000.0")
+                .append(separator)
+                .append("  },")
+                .append(separator)
+                .append("  {")
+                .append(separator)
+                .append("    \"name\": \"kate\",")
+                .append(separator)
+                .append(String.format("    \"hired\": \"%s\",", parser.parse(now)))
+                .append(separator)
+                .append(String.format("    \"fired\": \"%s\",", parser.parse(now)))
+                .append(separator)
+                .append("    \"salary\": 15000.0")
+                .append(separator)
+                .append("  },")
+                .append(separator)
+                .append("  {")
+                .append(separator)
+                .append("    \"name\": \"maggy\",")
+                .append(separator)
+                .append(String.format("    \"hired\": \"%s\",", parser.parse(now)))
+                .append(separator)
+                .append(String.format("    \"fired\": \"%s\",", parser.parse(now)))
+                .append(separator)
+                .append("    \"salary\": 20000.0")
                 .append(separator)
                 .append("  }")
                 .append(separator)
