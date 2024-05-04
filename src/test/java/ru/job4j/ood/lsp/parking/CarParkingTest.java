@@ -15,6 +15,7 @@ class CarParkingTest {
         parking.parkVehicle(new Truck(2));
         assertThat(parking.parkVehicle(new Truck(2))).isTrue();
     }
+
     @Test
     void whenNotEnoughParkingPlacesThenCantParkTheVehicle() {
         Parking<Vehicle> parking = new CarParking(1, 3);
@@ -22,6 +23,5 @@ class CarParkingTest {
         parking.parkVehicle(new Truck(2));
         assertThat(parking.parkVehicle(new Truck(3))).isFalse();
     }
-
 
 }
