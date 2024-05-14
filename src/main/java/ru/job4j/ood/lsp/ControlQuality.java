@@ -17,4 +17,16 @@ public class ControlQuality {
             store.add(food);
         }
     }
+
+    public void restore() {
+        List<Food> foods = stores.stream()
+                .flatMap(e -> e.getAllProducts().stream())
+                .toList();
+        for (Store<Food> store : stores) {
+            store.clear();
+            for (Food food : foods) {
+                store.addRestored(food);
+            }
+        }
+    }
 }

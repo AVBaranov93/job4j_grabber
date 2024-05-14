@@ -10,4 +10,8 @@ public interface Store<T> {
     T findById(int id);
 
     T delete(int id);
+
+    void clear();
+
+    void addRestored(T t);
 }

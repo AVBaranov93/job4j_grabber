@@ -17,7 +17,19 @@ public class Trash extends AbstractStore {
     }
 
     @Override
+    public void addRestored(Food food) {
+        if (CheckDate.calculateRestDays(food) > 0.95) {
+            foods.add(food);
+        }
+    }
+
+    @Override
     public List<Food> getAllProducts() {
         return foods;
+    }
+
+    @Override
+    public void clear() {
+        foods.clear();
     }
 }

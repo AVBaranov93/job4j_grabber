@@ -21,8 +21,23 @@ public class Shop extends AbstractStore {
     }
 
     @Override
+    public void addRestored(Food food) {
+        if (CheckDate.calculateRestDays(food) >= 0.5 && CheckDate.calculateRestDays(food) <= 0.75) {
+            foods.add(food);
+        } else if (CheckDate.calculateRestDays(food) > 0.75 && CheckDate.calculateRestDays(food) < 0.95) {
+            food.setPrice(food.getPrice() * 0.2);
+            foods.add(food);
+        }
+    }
+
+    @Override
     public List<Food> getAllProducts() {
         return foods;
+    }
+
+    @Override
+    public void clear() {
+        foods.clear();
     }
 
 }
