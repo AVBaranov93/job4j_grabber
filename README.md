@@ -9,4 +9,4 @@
 2. В проекте можно сделать параллельный парсинг сайтов.
 3. changes from branch master
 3. changes from hotfix
-4. changes from task branch
+4. on master branch
