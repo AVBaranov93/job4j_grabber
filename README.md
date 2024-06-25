@@ -7,6 +7,4 @@
 Расширение.
 1. В проект можно добавить новые сайты без изменения кода.
 2. В проекте можно сделать параллельный парсинг сайтов.
-3. changes from branch master
-3. changes from hotfix
-4. on master branch
+3. on branch master
