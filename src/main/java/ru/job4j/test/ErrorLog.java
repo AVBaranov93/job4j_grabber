@@ -10,6 +10,6 @@ public class ErrorLog implements LogFile {
 
     @Override
     public void log(String fileName) {
-        System.out.println("4");
+        System.out.println("error");
     }
 }

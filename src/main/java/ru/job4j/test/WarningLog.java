@@ -11,7 +11,7 @@ public class WarningLog implements LogFile {
     @Override
     public void log(String fileName) {
         if (Arrays.asList(fileName.split(" ")).contains("WARNING")) {
-            LOG.warn("warning message");
+            LOG.warn("warning message 111");
         }
     }
 }

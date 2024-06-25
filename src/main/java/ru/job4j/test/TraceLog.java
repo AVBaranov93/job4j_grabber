@@ -11,7 +11,7 @@ public class TraceLog implements LogFile {
     @Override
     public void log(String fileName) {
         if (Arrays.asList(fileName.split(" ")).contains("TRACE")) {
-            LOG.warn("warning message");
+            LOG.warn("warning message 123");
         }
     }
 }
